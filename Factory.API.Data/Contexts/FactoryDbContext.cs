@@ -1,8 +1,12 @@
-﻿using Factory.API.Data.Configurations;
+﻿
+
+using Factory.API.Data.Configurations;
 using Factory.API.Data.Entities;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Design;
+using Microsoft.Extensions.Configuration;
 
 namespace Factory.API.Data.Contexts
 {
@@ -24,6 +28,24 @@ namespace Factory.API.Data.Contexts
             builder.ApplyConfiguration(new ToolTypeConfiguration());
             builder.ApplyConfiguration(new MaterialConfiguration());
             builder.ApplyConfiguration(new ToolConfiguration());
+        }
+    }
+
+    //Need this for Scaffold
+    public class FactoryDbContextFatory : IDesignTimeDbContextFactory<FactoryDbContext>
+    {
+        public FactoryDbContext CreateDbContext(string[] args)
+        {
+            IConfiguration config = new ConfigurationBuilder()
+                .SetBasePath(Directory.GetCurrentDirectory())
+                .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
+                .Build();
+
+            var optionalBuilder = new DbContextOptionsBuilder<FactoryDbContext>();
+            var conn = config.GetConnectionString("FactoryDbConnectionString");
+            optionalBuilder.UseSqlServer(conn);
+
+            return new FactoryDbContext(optionalBuilder.Options);
         }
     }
 }
