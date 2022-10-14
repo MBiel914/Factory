@@ -1,5 +1,6 @@
 using Factory.API.Core.Configurations;
 using Factory.API.Core.Contracts;
+using Factory.API.Core.Middlewares;
 using Factory.API.Core.Repositories;
 using Factory.API.Data.Contexts;
 using Microsoft.EntityFrameworkCore;
@@ -37,5 +38,7 @@ app.UseHttpsRedirection();
 app.UseAuthorization();
 
 app.MapControllers();
+
+app.UseMiddleware<ExceptionMiddleware>();
 
 app.Run();
