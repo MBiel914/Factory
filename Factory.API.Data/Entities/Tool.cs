@@ -5,6 +5,7 @@ namespace Factory.API.Data.Entities
     public class Tool
     {
         public int Id { get; set; }
+        public string Name { get; set; }
         public double Weight { get; set; }
         public double Margin { get; set; }
 

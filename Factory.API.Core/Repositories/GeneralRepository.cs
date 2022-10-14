@@ -1,7 +1,9 @@
 ﻿using AutoMapper;
+using AutoMapper.QueryableExtensions;
 using Factory.API.Core.Contracts;
 using Factory.API.Core.Models.Extras;
 using Factory.API.Data.Contexts;
+using Microsoft.EntityFrameworkCore;
 
 namespace Factory.API.Core.Repositories
 {
@@ -33,9 +35,11 @@ namespace Factory.API.Core.Repositories
             return entity != null;
         }
 
-        public Task<List<TResult>> GetAllAsync<TResult>()
+        public async Task<List<TResult>> GetAllAsync<TResult>()
         {
-            throw new NotImplementedException();
+            return await _context.Set<T>()
+                .ProjectTo<TResult>(_mapper.ConfigurationProvider)
+                .ToListAsync();
         }
 
         public Task<List<TResult>> GetAllAsync<TResult>(QueryParameters parameters)
@@ -43,9 +47,13 @@ namespace Factory.API.Core.Repositories
             throw new NotImplementedException();
         }
 
-        public Task<TResult> GetAsync<TResult>(int? id)
+        public async Task<TResult> GetAsync<TResult>(int? id)
         {
-            throw new NotImplementedException();
+            if (id is null)
+                throw new ArgumentNullException();
+
+            var result = await _context.Set<T>().FindAsync(id);
+            return _mapper.Map<TResult>(result);
         }
 
         public Task UpdateAsync<TSource>(int id, TSource source)

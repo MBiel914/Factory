@@ -12,6 +12,7 @@ namespace Factory.API.Data.Configurations
                 new Tool
                 {
                     Id = 1,
+                    Name = "Klucz płaski 13 (Stal nierdzewna 9%)",
                     Weight = 0.070,
                     Margin = 0.10,
                     ToolTypeId = 1,
@@ -20,6 +21,7 @@ namespace Factory.API.Data.Configurations
                 new Tool
                 {
                     Id = 2,
+                    Name = "Klucz płaski 13 (Stal nierdzewna 8%)",
                     Weight = 0.070,
                     Margin = 0.80,
                     ToolTypeId = 1,
@@ -28,6 +30,7 @@ namespace Factory.API.Data.Configurations
                 new Tool
                 {
                     Id = 3,
+                    Name = "Klucz płaski 13 (Stal nierdzewna wióry)",
                     Weight = 0.070,
                     Margin = 0.60,
                     ToolTypeId = 1,

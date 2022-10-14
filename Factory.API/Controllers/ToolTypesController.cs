@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using Factory.API.Data.Contexts;
 using Factory.API.Data.Entities;
 using Factory.API.Core.Contracts;
+using Factory.API.Core.Models.ToolType;
 
 namespace Factory.API.Controllers
 {
@@ -24,16 +25,16 @@ namespace Factory.API.Controllers
 
         // GET: api/ToolTypes
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<ToolType>>> GetToolTypes()
+        public async Task<ActionResult<IEnumerable<GetToolTypeDto>>> GetToolTypes()
         {
-            return await _context.GetAllAsync<ToolType>();
+            return await _context.GetAllAsync<GetToolTypeDto>();
         }
 
         // GET: api/ToolTypes/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<ToolType>> GetToolType(int id)
+        public async Task<ActionResult<ToolTypeDto>> GetToolType(int id)
         {
-            var toolType = await _context.GetAsync<ToolType>(id);
+            var toolType = await _context.GetDetails(id);
 
             if (toolType == null)
             {
