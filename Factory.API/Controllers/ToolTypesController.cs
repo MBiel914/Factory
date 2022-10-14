@@ -9,6 +9,8 @@ using Factory.API.Data.Contexts;
 using Factory.API.Data.Entities;
 using Factory.API.Core.Contracts;
 using Factory.API.Core.Models.ToolType;
+using Factory.API.Core.Models.Extras;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Factory.API.Controllers
 {
@@ -24,10 +26,18 @@ namespace Factory.API.Controllers
         }
 
         // GET: api/ToolTypes
-        [HttpGet]
+        [HttpGet("GetAll")]
         public async Task<ActionResult<IEnumerable<GetToolTypeDto>>> GetToolTypes()
         {
-            return await _context.GetAllAsync<GetToolTypeDto>();
+            return Ok(await _context.GetAllAsync<GetToolTypeDto>());
+        }
+
+        // GET: api/ToolTypes
+        [HttpGet("GetPaged")]
+        [AllowAnonymous]
+        public async Task<ActionResult<IEnumerable<GetToolTypeDto>>> GetPagedToolTypes([FromBody] QueryParameters parameters)
+        {
+            return Ok(await _context.GetAllAsync<GetToolTypeDto>(parameters));
         }
 
         // GET: api/ToolTypes/5
@@ -41,24 +51,21 @@ namespace Factory.API.Controllers
                 return NotFound();
             }
 
-            return toolType;
+            return Ok(toolType);
         }
 
         // PUT: api/ToolTypes/5
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutToolType(int id, ToolType toolType)
+        public async Task<IActionResult> PutToolType(int id, GetToolTypeDto updateToolType)
         {
-            if (id != toolType.Id)
+            if (id != updateToolType.Id)
             {
-                return BadRequest();
+                return BadRequest("Invalid Record ID");
             }
-
-            //_context.Entry(toolType).State = EntityState.Modified;
 
             try
             {
-                await _context.UpdateAsync<ToolType>(id, toolType);
+                await _context.UpdateAsync<GetToolTypeDto>(id, updateToolType);
             }
             catch (DbUpdateConcurrencyException)
             {
@@ -76,14 +83,11 @@ namespace Factory.API.Controllers
         }
 
         // POST: api/ToolTypes
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<ToolType>> PostToolType(ToolType toolType)
+        public async Task<ActionResult<GetToolTypeDto>> PostToolType(BaseToolTypeDto toolType)
         {
-            //_context.ToolTypes.Add(toolType);
-            //await _context.SaveChangesAsync();
-            await _context.AddAsync<ToolType, ToolType>(toolType);
-            return CreatedAtAction("GetToolType", new { id = toolType.Id }, toolType);
+            var result = await _context.AddAsync<BaseToolTypeDto, GetToolTypeDto>(toolType);
+            return CreatedAtAction(nameof(GetToolType), new { id = result.Id }, result);
         }
 
         // DELETE: api/ToolTypes/5

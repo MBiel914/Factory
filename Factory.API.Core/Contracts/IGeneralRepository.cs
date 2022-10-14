@@ -8,7 +8,7 @@ namespace Factory.API.Core.Contracts
         Task<TResult> GetAsync<TResult>(int? id);
         
         Task<List<TResult>> GetAllAsync<TResult>();
-        Task<List<TResult>> GetAllAsync<TResult>(QueryParameters parameters);
+        Task<PagedResult<TResult>> GetAllAsync<TResult>(QueryParameters parameters);
 
         Task<TResult> AddAsync<TSource, TResult>(TSource source);
 

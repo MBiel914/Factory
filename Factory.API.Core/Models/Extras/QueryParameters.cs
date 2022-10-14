@@ -10,7 +10,6 @@
             set { _pageSize = value; }
         }
 
-        public int PageCount { get; set; }
         public int StartIndex { get; set; }
     }
 }

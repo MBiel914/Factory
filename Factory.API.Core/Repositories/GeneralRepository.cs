@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using AutoMapper.QueryableExtensions;
 using Factory.API.Core.Contracts;
+using Factory.API.Core.Exceptions;
 using Factory.API.Core.Models.Extras;
 using Factory.API.Data.Contexts;
 using Microsoft.EntityFrameworkCore;
@@ -19,14 +20,25 @@ namespace Factory.API.Core.Repositories
             this._mapper = mapper;
         }
 
-        public Task<TResult> AddAsync<TSource, TResult>(TSource source)
+        public async Task<TResult> AddAsync<TSource, TResult>(TSource source)
         {
-            throw new NotImplementedException();
+            var entity = _mapper.Map<T>(source);
+
+            await _context.AddRangeAsync(entity);
+            await _context.SaveChangesAsync();
+
+            return _mapper.Map<TResult>(entity);
         }
 
-        public Task DeleteAsyc(int id)
+        public async Task DeleteAsyc(int id)
         {
-            throw new NotImplementedException();
+            var entity = await GetAsync<T>(id);
+
+            if(entity is null)
+                throw new NotFoundException(typeof(T).Name, id);
+
+            _context.Set<T>().Remove(entity);
+            await _context.SaveChangesAsync();
         }
 
         public async Task<bool> Exists(int id)
@@ -42,23 +54,44 @@ namespace Factory.API.Core.Repositories
                 .ToListAsync();
         }
 
-        public Task<List<TResult>> GetAllAsync<TResult>(QueryParameters parameters)
+        public async Task<PagedResult<TResult>> GetAllAsync<TResult>(QueryParameters parameters)
         {
-            throw new NotImplementedException();
+            var totalSize = await _context.Set<T>().CountAsync();
+            var result = await _context.Set<T>()
+                .Skip(parameters.StartIndex)
+                .Take(parameters.PageSize)
+                .ProjectTo<TResult>(_mapper.ConfigurationProvider)
+                .ToListAsync();
+
+            return new PagedResult<TResult>
+            {
+                TotalCount = totalSize,
+                PageSize = parameters.PageSize,
+                Items = result
+            };
         }
 
         public async Task<TResult> GetAsync<TResult>(int? id)
         {
-            if (id is null)
-                throw new ArgumentNullException();
-
             var result = await _context.Set<T>().FindAsync(id);
+
+            if (result is null)
+                throw new NotFoundException(typeof(T).Name, id.HasValue ? id : "No Key Provided");
+
             return _mapper.Map<TResult>(result);
         }
 
-        public Task UpdateAsync<TSource>(int id, TSource source)
+        public async Task UpdateAsync<TSource>(int id, TSource source)
         {
-            throw new NotImplementedException();
+            var entity = await GetAsync<T>(id);
+
+            if (entity is null)
+                throw new NotFoundException(typeof(T).Name, id);
+
+            _mapper.Map(source, entity);
+            _context.Update(entity);
+
+            await _context.SaveChangesAsync();
         }
     }
 }
