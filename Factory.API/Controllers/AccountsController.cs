@@ -5,14 +5,15 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Factory.API.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/v{version:apiVersion}/Accounts")]
     [ApiController]
-    public class AccountController : ControllerBase
+    [ApiVersion("1.0")]
+    public class AccountsController : ControllerBase
     {
         private readonly IAuthManager _authManager;
-        private readonly ILogger<AccountController> _logger;
+        private readonly ILogger<AccountsController> _logger;
 
-        public AccountController(IAuthManager authManager, ILogger<AccountController> logger)
+        public AccountsController(IAuthManager authManager, ILogger<AccountsController> logger)
         {
             this._authManager = authManager;
             this._logger = logger;

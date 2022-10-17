@@ -10,12 +10,12 @@ namespace Factory.API.Controllers
 {
     [Route("api/v{version:apiVersion}/ToolTypes")]
     [ApiController]
-    [ApiVersion("1.0", Deprecated = true)]
-    public class ToolTypesController : ControllerBase
+    [ApiVersion("2.0")]
+    public class ToolTypesV2Controller : ControllerBase
     {
         private readonly IToolTypeRepository _context;
 
-        public ToolTypesController(IToolTypeRepository context)
+        public ToolTypesV2Controller(IToolTypeRepository context)
         {
             _context = context;
         }
@@ -23,6 +23,7 @@ namespace Factory.API.Controllers
         // GET: api/ToolTypes
         [HttpGet("GetAll")]
         [AllowAnonymous]
+        [EnableQuery]
         public async Task<ActionResult<IEnumerable<GetToolTypeDto>>> GetToolTypes()
         {
             return Ok(await _context.GetAllAsync<GetToolTypeDto>());
