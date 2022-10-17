@@ -191,6 +191,7 @@ namespace Factory.API.Data.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Weight = table.Column<double>(type: "float", nullable: false),
                     Margin = table.Column<double>(type: "float", nullable: false),
                     ToolTypeId = table.Column<int>(type: "int", nullable: false),
@@ -211,6 +212,15 @@ namespace Factory.API.Data.Migrations
                         principalTable: "ToolTypes",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.InsertData(
+                table: "AspNetRoles",
+                columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
+                values: new object[,]
+                {
+                    { "5b18329e-a452-4f10-8c95-66937f53c900", "f1049c4d-6f9e-458e-82a3-a5e5147a0cfe", "User", "USER" },
+                    { "86c2337a-32dc-4dee-b322-74f9f6bc4c67", "601fed05-e273-4a11-9cc5-37d714106bc7", "Administrator", "ADMINISTRATOR" }
                 });
 
             migrationBuilder.InsertData(
@@ -240,18 +250,18 @@ namespace Factory.API.Data.Migrations
 
             migrationBuilder.InsertData(
                 table: "Tools",
-                columns: new[] { "Id", "Margin", "MaterialId", "ToolTypeId", "Weight" },
-                values: new object[] { 1, 0.10000000000000001, 1, 1, 0.070000000000000007 });
+                columns: new[] { "Id", "Margin", "MaterialId", "Name", "ToolTypeId", "Weight" },
+                values: new object[] { 1, 0.10000000000000001, 1, "Klucz płaski 13 (Stal nierdzewna 9%)", 1, 0.070000000000000007 });
 
             migrationBuilder.InsertData(
                 table: "Tools",
-                columns: new[] { "Id", "Margin", "MaterialId", "ToolTypeId", "Weight" },
-                values: new object[] { 2, 0.80000000000000004, 2, 1, 0.070000000000000007 });
+                columns: new[] { "Id", "Margin", "MaterialId", "Name", "ToolTypeId", "Weight" },
+                values: new object[] { 2, 0.80000000000000004, 2, "Klucz płaski 13 (Stal nierdzewna 8%)", 1, 0.070000000000000007 });
 
             migrationBuilder.InsertData(
                 table: "Tools",
-                columns: new[] { "Id", "Margin", "MaterialId", "ToolTypeId", "Weight" },
-                values: new object[] { 3, 0.59999999999999998, 3, 1, 0.070000000000000007 });
+                columns: new[] { "Id", "Margin", "MaterialId", "Name", "ToolTypeId", "Weight" },
+                values: new object[] { 3, 0.59999999999999998, 3, "Klucz płaski 13 (Stal nierdzewna wióry)", 1, 0.070000000000000007 });
 
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",

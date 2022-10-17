@@ -1,5 +1,4 @@
 ﻿using AutoMapper;
-using AutoMapper.QueryableExtensions;
 using Factory.API.Core.Contracts;
 using Factory.API.Core.Models.ToolType;
 using Factory.API.Data.Contexts;

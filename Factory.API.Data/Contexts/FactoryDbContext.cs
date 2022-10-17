@@ -28,6 +28,7 @@ namespace Factory.API.Data.Contexts
             builder.ApplyConfiguration(new ToolTypeConfiguration());
             builder.ApplyConfiguration(new MaterialConfiguration());
             builder.ApplyConfiguration(new ToolConfiguration());
+            builder.ApplyConfiguration(new RoleConfiguration());
         }
     }
 

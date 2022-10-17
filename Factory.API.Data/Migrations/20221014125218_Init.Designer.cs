@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Factory.API.Data.Migrations
 {
     [DbContext(typeof(FactoryDbContext))]
-    [Migration("20221013131527_Init")]
+    [Migration("20221014125218_Init")]
     partial class Init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -84,6 +84,10 @@ namespace Factory.API.Data.Migrations
                     b.Property<int>("MaterialId")
                         .HasColumnType("int");
 
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<int>("ToolTypeId")
                         .HasColumnType("int");
 
@@ -104,6 +108,7 @@ namespace Factory.API.Data.Migrations
                             Id = 1,
                             Margin = 0.10000000000000001,
                             MaterialId = 1,
+                            Name = "Klucz płaski 13 (Stal nierdzewna 9%)",
                             ToolTypeId = 1,
                             Weight = 0.070000000000000007
                         },
@@ -112,6 +117,7 @@ namespace Factory.API.Data.Migrations
                             Id = 2,
                             Margin = 0.80000000000000004,
                             MaterialId = 2,
+                            Name = "Klucz płaski 13 (Stal nierdzewna 8%)",
                             ToolTypeId = 1,
                             Weight = 0.070000000000000007
                         },
@@ -120,6 +126,7 @@ namespace Factory.API.Data.Migrations
                             Id = 3,
                             Margin = 0.59999999999999998,
                             MaterialId = 3,
+                            Name = "Klucz płaski 13 (Stal nierdzewna wióry)",
                             ToolTypeId = 1,
                             Weight = 0.070000000000000007
                         });
@@ -234,6 +241,22 @@ namespace Factory.API.Data.Migrations
                         .HasFilter("[NormalizedName] IS NOT NULL");
 
                     b.ToTable("AspNetRoles", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = "86c2337a-32dc-4dee-b322-74f9f6bc4c67",
+                            ConcurrencyStamp = "601fed05-e273-4a11-9cc5-37d714106bc7",
+                            Name = "Administrator",
+                            NormalizedName = "ADMINISTRATOR"
+                        },
+                        new
+                        {
+                            Id = "5b18329e-a452-4f10-8c95-66937f53c900",
+                            ConcurrencyStamp = "f1049c4d-6f9e-458e-82a3-a5e5147a0cfe",
+                            Name = "User",
+                            NormalizedName = "USER"
+                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
