@@ -5,6 +5,7 @@ using Factory.API.Core.Repositories;
 using Factory.API.Data.Contexts;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.OData;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
@@ -62,6 +63,12 @@ builder.Logging.AddConsole();
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
+//OData
+builder.Services.AddControllers().AddOData(options =>
+{
+    options.Select().Filter().OrderBy();
+});
 
 var app = builder.Build();
 
