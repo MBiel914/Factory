@@ -10,7 +10,7 @@ using System.Text;
 
 namespace Factory.API.Core.Repositories
 {
-    public class ManagerRepository : IAuthManager
+    public class AuthenticationRepository : IAuthManager
     {
         private readonly IMapper _mapper;
         private readonly UserManager<IdentityUser> _userManager;
@@ -20,7 +20,7 @@ namespace Factory.API.Core.Repositories
         private const string _loginProvider = "FactoryAPI";
         private const string _refreshToken = "RefreshToken";
 
-        public ManagerRepository(IMapper mapper, UserManager<IdentityUser> userManager, IConfiguration configuration)
+        public AuthenticationRepository(IMapper mapper, UserManager<IdentityUser> userManager, IConfiguration configuration)
         {
             this._mapper = mapper;
             this._userManager = userManager;

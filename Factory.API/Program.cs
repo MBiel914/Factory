@@ -89,7 +89,7 @@ builder.Services.AddSwaggerGen(options =>
 builder.Services.AddAutoMapper(typeof(AutoMapperConfig));
 builder.Services.AddScoped(typeof(IGeneralRepository<>), typeof(GeneralRepository<>));
 builder.Services.AddScoped<IToolTypeRepository, ToolTypeRepository>();
-builder.Services.AddScoped<IAuthManager, ManagerRepository>();
+builder.Services.AddScoped<IAuthManager, AuthenticationRepository>();
 
 builder.Services.AddApiVersioning(options =>
 {
