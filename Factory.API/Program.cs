@@ -15,13 +15,11 @@ using System.Text;
 var builder = WebApplication.CreateBuilder(args);
 var connectionString = builder.Configuration.GetConnectionString("FactoryDbConnectionString");
 
-// Add services to the container.
 builder.Services.AddDbContext<FactoryDbContext>(options =>
 {
     options.UseSqlServer(connectionString);
 });
 
-//Authentications
 builder.Services.AddIdentityCore<IdentityUser>()
     .AddRoles<IdentityRole>()
     .AddTokenProvider<DataProtectorTokenProvider<IdentityUser>>(builder.Configuration["JwtSettings:Issuer"])
@@ -88,13 +86,11 @@ builder.Services.AddSwaggerGen(options =>
     });
 });
 
-//Mappers
 builder.Services.AddAutoMapper(typeof(AutoMapperConfig));
 builder.Services.AddScoped(typeof(IGeneralRepository<>), typeof(GeneralRepository<>));
 builder.Services.AddScoped<IToolTypeRepository, ToolTypeRepository>();
 builder.Services.AddScoped<IAuthManager, ManagerRepository>();
 
-//Versioning
 builder.Services.AddApiVersioning(options =>
 {
     options.AssumeDefaultVersionWhenUnspecified = true;
@@ -113,14 +109,12 @@ builder.Services.AddVersionedApiExplorer(options =>
     options.SubstituteApiVersionInUrl = true;
 });
 
-//Caching
 builder.Services.AddResponseCaching(options =>
 {
     options.MaximumBodySize = 1024;
     options.UseCaseSensitivePaths = true;
 });
 
-//Loggers
 builder.Logging.ClearProviders();
 builder.Logging.AddConsole();
 
@@ -128,7 +122,6 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-//OData
 builder.Services.AddControllers().AddOData(options =>
 {
     options.Select().Filter().OrderBy();
@@ -136,7 +129,6 @@ builder.Services.AddControllers().AddOData(options =>
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
@@ -147,8 +139,11 @@ app.UseHttpsRedirection();
 
 app.UseCors("AllowAll");
 
-//Caching
+app.UseAuthentication();
+app.UseAuthorization();
+
 app.UseResponseCaching();
+
 app.Use(async (context, next) =>
 {
     context.Response.GetTypedHeaders().CacheControl =
@@ -162,13 +157,8 @@ app.Use(async (context, next) =>
     await next();
 });
 
-//Authentications
-app.UseAuthentication();
-app.UseAuthorization();
-
 app.MapControllers();
 
-//Middlewares
 app.UseMiddleware<ExceptionMiddleware>();
 
 app.Run();
