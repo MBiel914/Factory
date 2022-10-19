@@ -4,7 +4,6 @@ using Factory.API.Core.Contracts;
 using Factory.API.Core.Models.ToolType;
 using Factory.API.Core.Models.Extras;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.OData.Query;
 
 namespace Factory.API.Controllers
 {
