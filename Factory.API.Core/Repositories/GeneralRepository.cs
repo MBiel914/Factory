@@ -8,8 +8,8 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Factory.API.Core.Repositories
 {
-    public class GeneralRepository<T> : IGeneralRepository<T>
-        where T : class
+    public class GeneralRepository<TDbModel> : IGeneralRepository<TDbModel>
+        where TDbModel : class
     {
         private readonly FactoryDbContext _context;
         private readonly IMapper _mapper;
@@ -22,42 +22,44 @@ namespace Factory.API.Core.Repositories
 
         public async Task<TResult> AddAsync<TSource, TResult>(TSource source)
         {
-            var entity = _mapper.Map<T>(source);
+            var entity = _mapper.Map<TDbModel>(source);
 
-            await _context.AddRangeAsync(entity);
-            await _context.SaveChangesAsync();
+            _context.AddRange(entity);
+            _context.SaveChanges();
 
             return _mapper.Map<TResult>(entity);
         }
 
-        public async Task DeleteAsyc(int id)
+        public Task Delete(int id)
         {
-            var entity = await GetAsync<T>(id);
+            var entity = GetAsync<TDbModel>(id);
 
             if(entity is null)
-                throw new NotFoundException(typeof(T).Name, id);
+                throw new NotFoundException(typeof(TDbModel).Name, id);
 
-            _context.Set<T>().Remove(entity);
-            await _context.SaveChangesAsync();
+            _context.Set<TDbModel>().Remove(entity.GetAwaiter().GetResult());
+            _context.SaveChanges();
+
+            return Task.CompletedTask;
         }
 
-        public async Task<bool> Exists(int id)
+        public Task<bool> Exists(int id)
         {
-            var entity = await GetAsync<T>(id);
-            return entity != null;
+            var entity = GetAsync<TDbModel>(id);
+            return Task.FromResult(entity != null);
         }
 
         public async Task<List<TResult>> GetAllAsync<TResult>()
         {
-            return await _context.Set<T>()
+            return await _context.Set<TDbModel>()
                 .ProjectTo<TResult>(_mapper.ConfigurationProvider)
                 .ToListAsync();
         }
 
         public async Task<PagedResult<TResult>> GetAllAsync<TResult>(QueryParameters parameters)
         {
-            var totalSize = await _context.Set<T>().CountAsync();
-            var result = await _context.Set<T>()
+            var totalSize = await _context.Set<TDbModel>().CountAsync();
+            var result = await _context.Set<TDbModel>()
                 .Skip(parameters.StartIndex)
                 .Take(parameters.PageSize)
                 .ProjectTo<TResult>(_mapper.ConfigurationProvider)
@@ -73,25 +75,26 @@ namespace Factory.API.Core.Repositories
 
         public async Task<TResult> GetAsync<TResult>(int? id)
         {
-            var result = await _context.Set<T>().FindAsync(id);
+            var result = await _context.Set<TDbModel>().FindAsync(id);
 
             if (result is null)
-                throw new NotFoundException(typeof(T).Name, id.HasValue ? id : "No Key Provided");
+                throw new NotFoundException(typeof(TDbModel).Name, id.HasValue ? id : "No Key Provided");
 
             return _mapper.Map<TResult>(result);
         }
 
-        public async Task UpdateAsync<TSource>(int id, TSource source)
+        public Task Update<TSource>(int id, TSource source)
         {
-            var entity = await GetAsync<T>(id);
+            var entity = GetAsync<TDbModel>(id);
 
             if (entity is null)
-                throw new NotFoundException(typeof(T).Name, id);
+                throw new NotFoundException(typeof(TDbModel).Name, id);
 
             _mapper.Map(source, entity);
             _context.Update(entity);
 
-            await _context.SaveChangesAsync();
+            _context.SaveChanges();
+            return Task.CompletedTask;
         }
     }
 }

@@ -58,7 +58,7 @@ namespace Factory.API.Controllers
 
             try
             {
-                await _repository.UpdateAsync<GetToolTypeDto>(id, updateToolTypeDto);
+                await _repository.Update<GetToolTypeDto>(id, updateToolTypeDto);
             }
             catch (DbUpdateConcurrencyException)
             {
@@ -87,7 +87,7 @@ namespace Factory.API.Controllers
         [Authorize(Roles = "Administrator")]
         public async Task<IActionResult> DeleteToolType(int id)
         {
-            await _repository.DeleteAsyc(id);
+            await _repository.Delete(id);
             return NoContent();
         }
 

@@ -61,6 +61,8 @@ namespace Factory.API.Controllers
         [AllowAnonymous]
         public async Task<ActionResult> Login([FromBody] LoginDto loginDto)
         {
+            _logger.LogInformation($"User: {loginDto.Email}, try to login.");
+
             var authResponse = await _authManager.Login(loginDto);
 
             if (authResponse is null)

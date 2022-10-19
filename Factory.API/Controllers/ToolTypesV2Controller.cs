@@ -4,6 +4,7 @@ using Factory.API.Core.Contracts;
 using Factory.API.Core.Models.ToolType;
 using Factory.API.Core.Models.Extras;
 using Microsoft.AspNetCore.Authorization;
+using Factory.API.Core.Exceptions;
 
 namespace Factory.API.Controllers
 {
@@ -58,18 +59,11 @@ namespace Factory.API.Controllers
 
             try
             {
-                await _repository.UpdateAsync<GetToolTypeDto>(id, updateToolTypeDto);
+                await _repository.Update<GetToolTypeDto>(id, updateToolTypeDto);
             }
-            catch (DbUpdateConcurrencyException)
+            catch (NotFoundException ex)
             {
-                if (!await ToolTypeExistsAsync(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
+                return NotFound(ex.Message);
             }
 
             return NoContent();
@@ -87,7 +81,15 @@ namespace Factory.API.Controllers
         [Authorize(Roles = "Administrator")]
         public async Task<IActionResult> DeleteToolType(int id)
         {
-            await _repository.DeleteAsyc(id);
+            try
+            {
+                await _repository.Delete(id);
+            }
+            catch (NotFoundException ex)
+            {
+                return NotFound(ex.Message);
+            }
+
             return NoContent();
         }
 
