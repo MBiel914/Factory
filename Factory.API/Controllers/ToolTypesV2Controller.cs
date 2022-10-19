@@ -20,7 +20,6 @@ namespace Factory.API.Controllers
             _context = context;
         }
 
-        // GET: api/ToolTypes
         [HttpGet("GetAll")]
         [AllowAnonymous]
         [EnableQuery]
@@ -29,7 +28,6 @@ namespace Factory.API.Controllers
             return Ok(await _context.GetAllAsync<GetToolTypeDto>());
         }
 
-        // GET: api/ToolTypes
         [HttpGet("GetPaged")]
         [AllowAnonymous]
         public async Task<ActionResult<IEnumerable<GetToolTypeDto>>> GetPagedToolTypes([FromBody] QueryParameters parameters)
@@ -37,7 +35,6 @@ namespace Factory.API.Controllers
             return Ok(await _context.GetAllAsync<GetToolTypeDto>(parameters));
         }
 
-        // GET: api/ToolTypes/5
         [HttpGet("{id}")]
         [AllowAnonymous]
         public async Task<ActionResult<ToolTypeDto>> GetToolType(int id)
@@ -52,7 +49,6 @@ namespace Factory.API.Controllers
             return Ok(toolType);
         }
 
-        // PUT: api/ToolTypes/5
         [HttpPut("{id}")]
         [Authorize]
         public async Task<IActionResult> PutToolType(int id, GetToolTypeDto updateToolTypeDto)
@@ -81,7 +77,6 @@ namespace Factory.API.Controllers
             return NoContent();
         }
 
-        // POST: api/ToolTypes
         [HttpPost]
         [Authorize]
         public async Task<ActionResult<GetToolTypeDto>> PostToolType(BaseToolTypeDto toolTypeDto)
@@ -90,7 +85,6 @@ namespace Factory.API.Controllers
             return CreatedAtAction(nameof(GetToolType), new { id = result.Id }, result);
         }
 
-        // DELETE: api/ToolTypes/5
         [HttpDelete("{id}")]
         [Authorize(Roles = "Administrator")]
         public async Task<IActionResult> DeleteToolType(int id)

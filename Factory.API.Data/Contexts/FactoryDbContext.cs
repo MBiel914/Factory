@@ -1,6 +1,4 @@
-﻿
-
-using Factory.API.Data.Configurations;
+﻿using Factory.API.Data.Configurations;
 using Factory.API.Data.Entities;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
@@ -32,7 +30,6 @@ namespace Factory.API.Data.Contexts
         }
     }
 
-    //Need this for Scaffold
     public class FactoryDbContextFatory : IDesignTimeDbContextFactory<FactoryDbContext>
     {
         public FactoryDbContext CreateDbContext(string[] args)
