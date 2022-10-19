@@ -13,32 +13,32 @@ namespace Factory.API.Controllers
     [ApiVersion("1.0", Deprecated = true)]
     public class ToolTypesController : ControllerBase
     {
-        private readonly IToolTypeRepository _context;
+        private readonly IToolTypeRepository _repository;
 
-        public ToolTypesController(IToolTypeRepository context)
+        public ToolTypesController(IToolTypeRepository repository)
         {
-            _context = context;
+            _repository = repository;
         }
 
         [HttpGet("GetAll")]
         [AllowAnonymous]
         public async Task<ActionResult<IEnumerable<GetToolTypeDto>>> GetToolTypes()
         {
-            return Ok(await _context.GetAllAsync<GetToolTypeDto>());
+            return Ok(await _repository.GetAllAsync<GetToolTypeDto>());
         }
 
         [HttpGet("GetPaged")]
         [AllowAnonymous]
         public async Task<ActionResult<IEnumerable<GetToolTypeDto>>> GetPagedToolTypes([FromBody] QueryParameters parameters)
         {
-            return Ok(await _context.GetAllAsync<GetToolTypeDto>(parameters));
+            return Ok(await _repository.GetAllAsync<GetToolTypeDto>(parameters));
         }
 
         [HttpGet("{id}")]
         [AllowAnonymous]
         public async Task<ActionResult<ToolTypeDto>> GetToolType(int id)
         {
-            var toolType = await _context.GetDetails(id);
+            var toolType = await _repository.GetDetails(id);
 
             if (toolType == null)
             {
@@ -59,7 +59,7 @@ namespace Factory.API.Controllers
 
             try
             {
-                await _context.UpdateAsync<GetToolTypeDto>(id, updateToolTypeDto);
+                await _repository.UpdateAsync<GetToolTypeDto>(id, updateToolTypeDto);
             }
             catch (DbUpdateConcurrencyException)
             {
@@ -80,7 +80,7 @@ namespace Factory.API.Controllers
         [Authorize]
         public async Task<ActionResult<GetToolTypeDto>> PostToolType(BaseToolTypeDto toolTypeDto)
         {
-            var result = await _context.AddAsync<BaseToolTypeDto, GetToolTypeDto>(toolTypeDto);
+            var result = await _repository.AddAsync<BaseToolTypeDto, GetToolTypeDto>(toolTypeDto);
             return CreatedAtAction(nameof(GetToolType), new { id = result.Id }, result);
         }
 
@@ -88,13 +88,13 @@ namespace Factory.API.Controllers
         [Authorize(Roles = "Administrator")]
         public async Task<IActionResult> DeleteToolType(int id)
         {
-            await _context.DeleteAsyc(id);
+            await _repository.DeleteAsyc(id);
             return NoContent();
         }
 
         private async Task<bool> ToolTypeExistsAsync(int id)
         {
-            return await _context.Exists(id);
+            return await _repository.Exists(id);
         }
     }
 }
