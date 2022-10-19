@@ -3,11 +3,16 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.3.32922.545
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Factory.API", "Factory.API\Factory.API.csproj", "{1F5E3C93-C98B-4FD8-9BBC-22822B6D7103}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Factory.API", "Factory.API\Factory.API.csproj", "{1F5E3C93-C98B-4FD8-9BBC-22822B6D7103}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Factory.API.Data", "Factory.API.Data\Factory.API.Data.csproj", "{96AA7B33-E350-4162-8024-75E1D1F8DA9D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Factory.API.Data", "Factory.API.Data\Factory.API.Data.csproj", "{96AA7B33-E350-4162-8024-75E1D1F8DA9D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Factory.API.Core", "Factory.API.Core\Factory.API.Core.csproj", "{FD31BAC2-A66C-4DA4-947F-852CCF8ED452}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Factory.API.Service", "Factory.API.Core\Factory.API.Service.csproj", "{FD31BAC2-A66C-4DA4-947F-852CCF8ED452}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{306628CE-FF2E-4A03-9E31-D3B144D9EA08}"
+	ProjectSection(SolutionItems) = preProject
+		.editorconfig = .editorconfig
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
