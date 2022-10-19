@@ -1,6 +1,5 @@
-using Factory.API.Core.Configurations;
+﻿using Factory.API.Core.Configurations;
 using Factory.API.Core.Contracts;
-using Factory.API.Core.Middlewares;
 using Factory.API.Core.Repositories;
 using Factory.API.Data.Contexts;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -158,7 +157,5 @@ app.Use(async (context, next) =>
 });
 
 app.MapControllers();
-
-app.UseMiddleware<ExceptionMiddleware>();
 
 app.Run();
