@@ -116,12 +116,14 @@ namespace Factory.API.Core.Repositories
         private async Task<string> GenerateToken()
         {
             var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["JwtSettings:Key"]));
-
             var credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256);
 
-            var roles = await _userManager.GetRolesAsync(_user);
-            var roleClaims = roles.Select(x => new Claim(ClaimTypes.Role, x)).ToList();
-            var userClaims = await _userManager.GetClaimsAsync(_user);
+            var roles = _userManager.GetRolesAsync(_user);
+            var userClaims = _userManager.GetClaimsAsync(_user);
+
+            Task.WhenAll(roles, userClaims).Wait();
+
+            var roleClaims = (await roles).Select(x => new Claim(ClaimTypes.Role, x)).ToList();
 
             var claims = new List<Claim>
             {
@@ -130,7 +132,7 @@ namespace Factory.API.Core.Repositories
                 new Claim(JwtRegisteredClaimNames.Email, _user.Email),
                 new Claim("uid", _user.Id)
             }
-            .Union(userClaims).Union(roleClaims);
+            .Union((await userClaims)).Union(roleClaims);
 
             var token = new JwtSecurityToken(
                 issuer: _configuration["JwtSettings:Issuer"],
