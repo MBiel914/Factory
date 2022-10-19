@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Factory.API.Controllers
 {
-    [Route("api/v{version:apiVersion}/Accounts")]
+    [Route("api/v{version:apiVersion}/accounts")]
     [ApiController]
     [ApiVersion("1.0")]
     public class AccountsController : ControllerBase
@@ -19,8 +19,7 @@ namespace Factory.API.Controllers
             this._logger = logger;
         }
 
-        [HttpPost]
-        [Route("registeruser")]
+        [HttpPost("register-user")]
         public async Task<ActionResult> Register([FromBody] ApiUserDto apiUserDto)
         {
             _logger.LogInformation($"Registration Attempt for {apiUserDto.Email}");
@@ -39,8 +38,7 @@ namespace Factory.API.Controllers
             return Ok();
         }
 
-        [HttpPost]
-        [Route("registeradminitrator")]
+        [HttpPost("register-administrator")]
         [Authorize(Roles = "Administrator")]
         public async Task<ActionResult> RegisterAdminitrator([FromBody] ApiUserDto apiUserDto)
         {
@@ -60,7 +58,6 @@ namespace Factory.API.Controllers
         }
 
         [HttpPost]
-        [Route("login")]
         [AllowAnonymous]
         public async Task<ActionResult> Login([FromBody] LoginDto loginDto)
         {

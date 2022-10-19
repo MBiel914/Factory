@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace Factory.API.Controllers
 {
-    [Route("api/v{version:apiVersion}/ToolTypes")]
+    [Route("api/v{version:apiVersion}/tool-types")]
     [ApiController]
     [ApiVersion("2.0")]
     public class ToolTypesV2Controller : ControllerBase
@@ -19,14 +19,14 @@ namespace Factory.API.Controllers
             _repository = repository;
         }
 
-        [HttpGet("GetAll")]
+        [HttpGet]
         [AllowAnonymous]
         public async Task<ActionResult<IEnumerable<GetToolTypeDto>>> GetToolTypes()
         {
             return Ok(await _repository.GetAllAsync<GetToolTypeDto>());
         }
 
-        [HttpGet("GetPaged")]
+        [HttpGet("paged")]
         [AllowAnonymous]
         public async Task<ActionResult<IEnumerable<GetToolTypeDto>>> GetPagedToolTypes([FromBody] QueryParameters parameters)
         {
