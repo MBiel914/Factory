@@ -57,6 +57,9 @@ namespace Factory.API.Controllers
                 return BadRequest("Invalid Record ID");
             }
 
+            if (!_repository.Exists(id).GetAwaiter().GetResult())
+                return NotFound($"Record with ID: {id}");
+
             try
             {
                 await _repository.Update<GetToolTypeDto>(id, updateToolTypeDto);
@@ -64,6 +67,9 @@ namespace Factory.API.Controllers
             catch (NotFoundException ex)
             {
                 return NotFound(ex.Message);
+            } catch (NotImplementedException)
+            {
+                return BadRequest("Not implemented");
             }
 
             return NoContent();

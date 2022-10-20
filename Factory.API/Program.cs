@@ -1,5 +1,4 @@
-﻿using Factory.API.Core.Configurations;
-using Factory.API.Core.Contracts;
+﻿using Factory.API.Core.Contracts;
 using Factory.API.Core.Repositories;
 using Factory.API.Data.Contexts;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -84,7 +83,6 @@ builder.Services.AddSwaggerGen(options =>
     });
 });
 
-builder.Services.AddAutoMapper(typeof(AutoMapperConfig));
 builder.Services.AddScoped(typeof(IGeneralRepository<>), typeof(GeneralRepository<>));
 builder.Services.AddScoped<IToolTypeRepository, ToolTypeRepository>();
 builder.Services.AddScoped<IAuthManager, AuthenticationRepository>();

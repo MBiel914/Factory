@@ -1,5 +1,4 @@
-﻿using AutoMapper;
-using Factory.API.Core.Contracts;
+﻿using Factory.API.Core.Contracts;
 using Factory.API.Core.Models.User;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
@@ -12,7 +11,6 @@ namespace Factory.API.Core.Repositories
 {
     public class AuthenticationRepository : IAuthManager
     {
-        private readonly IMapper _mapper;
         private readonly UserManager<IdentityUser> _userManager;
         private readonly IConfiguration _configuration;
         private IdentityUser _user;
@@ -20,9 +18,8 @@ namespace Factory.API.Core.Repositories
         private const string _loginProvider = "FactoryAPI";
         private const string _refreshToken = "RefreshToken";
 
-        public AuthenticationRepository(IMapper mapper, UserManager<IdentityUser> userManager, IConfiguration configuration)
+        public AuthenticationRepository(UserManager<IdentityUser> userManager, IConfiguration configuration)
         {
-            this._mapper = mapper;
             this._userManager = userManager;
             this._configuration = configuration;
         }
@@ -59,8 +56,7 @@ namespace Factory.API.Core.Repositories
 
         public async Task<IEnumerable<IdentityError>> RegisterUser(ApiUserDto userDto)
         {
-            _user = _mapper.Map<IdentityUser>(userDto);
-            _user.UserName = userDto.Email;
+            _user = userDto.Map();
 
             var result = await _userManager.CreateAsync(_user, userDto.Password);
             if (result.Succeeded)
@@ -71,8 +67,7 @@ namespace Factory.API.Core.Repositories
 
         public async Task<IEnumerable<IdentityError>> RegisterAdministrator(ApiUserDto userDto)
         {
-            _user = _mapper.Map<IdentityUser>(userDto);
-            _user.UserName = userDto.Email;
+            _user = userDto.Map();
 
             var result = await _userManager.CreateAsync(_user, userDto.Password);
 

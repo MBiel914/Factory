@@ -1,16 +1,22 @@
 ﻿using Factory.API.Core.Models.Extras;
+using Factory.API.Core.Repositories;
 
 namespace Factory.API.Core.Contracts
 {
-    public interface IGeneralRepository<T>
-        where T : class
+    public interface IGeneralRepository<TDbModel>
+        where TDbModel : class
     {
-        Task<TResult> GetAsync<TResult>(int? id);
+        Task<TResult> GetAsync<TResult>(int? id)
+            where TResult : class, IMapable<TDbModel, TResult>, new();
 
-        Task<List<TResult>> GetAllAsync<TResult>();
-        Task<PagedResult<TResult>> GetAllAsync<TResult>(QueryParameters parameters);
+        Task<List<TResult>> GetAllAsync<TResult>()
+            where TResult : class, IMapable<TDbModel, TResult>, new();
+        Task<PagedResult<TResult>> GetAllAsync<TResult>(QueryParameters parameters)
+            where TResult : class, IMapable<TDbModel, TResult>, new();
 
-        Task<TResult> AddAsync<TSource, TResult>(TSource source);
+        Task<TResult> AddAsync<TSource, TResult>(TSource source)
+            where TResult : class, IMapable<TSource, TResult>, new()
+            where TSource : class;
 
         Task Delete(int id);
 
