@@ -11,7 +11,7 @@ namespace Factory.API.Data.Contexts
     public class FactoryDbContext : IdentityDbContext<IdentityUser>
     {
         public FactoryDbContext(DbContextOptions options)
-            :base(options)
+            : base(options)
         {
         }
 

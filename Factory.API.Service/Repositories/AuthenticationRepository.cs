@@ -13,7 +13,7 @@ namespace Factory.API.Service.Repositories
     {
         private readonly UserManager<IdentityUser> _userManager;
         private readonly IConfiguration _configuration;
-        private IdentityUser _user;
+        private IdentityUser? _user;
 
         private const string _loginProvider = "FactoryAPI";
         private const string _refreshToken = "RefreshToken";
@@ -34,7 +34,7 @@ namespace Factory.API.Service.Repositories
             return newRefreshToken;
         }
 
-        public async Task<AuthResponseDto> Login(LoginDto loginDto)
+        public async Task<AuthResponseDto?> Login(LoginDto loginDto)
         {
             _user = await _userManager.FindByEmailAsync(loginDto.Email);
             bool isValidUser = await _userManager.CheckPasswordAsync(_user, loginDto.Password);
@@ -44,7 +44,7 @@ namespace Factory.API.Service.Repositories
                 return null;
             }
 
-            var token = await GenerateToken();
+            var token = await GenerateTokenAsync();
 
             return new AuthResponseDto
             {
@@ -79,7 +79,7 @@ namespace Factory.API.Service.Repositories
             return result.Errors;
         }
 
-        public async Task<AuthResponseDto> VerifyRefreshToken(AuthResponseDto request)
+        public async Task<AuthResponseDto?> VerifyRefreshToken(AuthResponseDto request)
         {
             var jwtSerurityTokenHandler = new JwtSecurityTokenHandler();
             var tokenContent = jwtSerurityTokenHandler.ReadJwtToken(request.Token);
@@ -95,7 +95,7 @@ namespace Factory.API.Service.Repositories
 
             if (isValidRefreshToken)
             {
-                var token = await GenerateToken();
+                var token = await GenerateTokenAsync();
                 return new AuthResponseDto
                 {
                     Token = token,
@@ -108,7 +108,7 @@ namespace Factory.API.Service.Repositories
             return null;
         }
 
-        private async Task<string> GenerateToken()
+        private async Task<string> GenerateTokenAsync()
         {
             var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["JwtSettings:Key"]));
             var credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256);
@@ -116,7 +116,7 @@ namespace Factory.API.Service.Repositories
             var roles = _userManager.GetRolesAsync(_user);
             var userClaims = _userManager.GetClaimsAsync(_user);
 
-            Task.WhenAll(roles, userClaims).Wait();
+            await Task.WhenAll(roles, userClaims);
 
             var roleClaims = (await roles).Select(x => new Claim(ClaimTypes.Role, x)).ToList();
 

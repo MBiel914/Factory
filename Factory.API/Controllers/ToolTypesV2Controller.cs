@@ -67,7 +67,8 @@ namespace Factory.API.Controllers
             catch (NotFoundException ex)
             {
                 return NotFound(ex.Message);
-            } catch (NotImplementedException)
+            }
+            catch (NotImplementedException)
             {
                 return BadRequest("Not implemented");
             }

@@ -4,6 +4,6 @@
         where TDestination : class
         where TSource : class
     {
-        public new TDestination Map(TSource source);
+        public TDestination Map(TSource source);
     }
 }
