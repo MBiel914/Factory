@@ -2,7 +2,7 @@
 using Factory.API.Service.Configurations;
 using Microsoft.AspNetCore.Identity;
 
-namespace Factory.API.Core.Models.User
+namespace Factory.API.Service.Models.User
 {
     public class ApiUserDto : LoginDto, IMapable<ApiUserDto, IdentityUser>
     {

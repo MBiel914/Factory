@@ -1,7 +1,7 @@
-﻿using Factory.API.Core.Models.Material;
+﻿using Factory.API.Service.Models.Material;
 using Factory.API.Service.Configurations;
 
-namespace Factory.API.Core.Models.Tool
+namespace Factory.API.Service.Models.Tool
 {
     public class ToolWithMaterialDto
         : BaseToolDto, IMapable<Data.Entities.Tool, ToolWithMaterialDto>

@@ -1,11 +1,11 @@
-﻿using Factory.API.Core.Contracts;
-using Factory.API.Core.Exceptions;
-using Factory.API.Core.Models.Extras;
+﻿using Factory.API.Service.Contracts;
+using Factory.API.Service.Exceptions;
+using Factory.API.Service.Models.Extras;
 using Factory.API.Data.Contexts;
 using Factory.API.Service.Configurations;
 using Microsoft.EntityFrameworkCore;
 
-namespace Factory.API.Core.Repositories
+namespace Factory.API.Service.Repositories
 {
     public class GeneralRepository<TDbModel> : IGeneralRepository<TDbModel>
         where TDbModel : class, new()

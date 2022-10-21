@@ -1,4 +1,4 @@
-﻿namespace Factory.API.Core.Exceptions
+﻿namespace Factory.API.Service.Exceptions
 {
     public class NotFoundException
         : Exception

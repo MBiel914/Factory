@@ -1,4 +1,4 @@
-﻿namespace Factory.API.Core.Models.Extras
+﻿namespace Factory.API.Service.Models.Extras
 {
     public class QueryParameters
     {

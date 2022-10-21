@@ -1,10 +1,10 @@
-﻿using Factory.API.Core.Contracts;
-using Factory.API.Core.Models.ToolType;
+﻿using Factory.API.Service.Contracts;
+using Factory.API.Service.Models.ToolType;
 using Factory.API.Data.Contexts;
 using Factory.API.Data.Entities;
 using Microsoft.EntityFrameworkCore;
 
-namespace Factory.API.Core.Repositories
+namespace Factory.API.Service.Repositories
 {
     public class ToolTypeRepository : GeneralRepository<ToolType>, IToolTypeRepository
     {

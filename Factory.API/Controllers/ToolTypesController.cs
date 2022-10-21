@@ -1,8 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using Factory.API.Core.Contracts;
-using Factory.API.Core.Models.ToolType;
-using Factory.API.Core.Models.Extras;
+using Factory.API.Service.Contracts;
+using Factory.API.Service.Models.ToolType;
+using Factory.API.Service.Models.Extras;
 using Microsoft.AspNetCore.Authorization;
 
 namespace Factory.API.Controllers

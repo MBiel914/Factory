@@ -1,6 +1,6 @@
 ﻿using Factory.API.Service.Configurations;
 
-namespace Factory.API.Core.Models.Tool
+namespace Factory.API.Service.Models.Tool
 {
     public class BaseToolDto : IMapable<Data.Entities.Tool, BaseToolDto>
     {

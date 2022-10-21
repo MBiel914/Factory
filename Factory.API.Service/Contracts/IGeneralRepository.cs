@@ -1,7 +1,7 @@
-﻿using Factory.API.Core.Models.Extras;
+﻿using Factory.API.Service.Models.Extras;
 using Factory.API.Service.Configurations;
 
-namespace Factory.API.Core.Contracts
+namespace Factory.API.Service.Contracts
 {
     public interface IGeneralRepository<TDbModel>
         where TDbModel : class

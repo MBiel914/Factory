@@ -1,7 +1,7 @@
-﻿using Factory.API.Core.Models.Tool;
+﻿using Factory.API.Service.Models.Tool;
 using Factory.API.Service.Configurations;
 
-namespace Factory.API.Core.Models.ToolType
+namespace Factory.API.Service.Models.ToolType
 {
     public class ToolTypeDto : BaseToolTypeDto, IMapable<Data.Entities.ToolType, ToolTypeDto>
     {

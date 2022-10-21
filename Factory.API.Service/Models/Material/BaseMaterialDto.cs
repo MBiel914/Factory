@@ -1,6 +1,6 @@
 ﻿using Factory.API.Service.Configurations;
 
-namespace Factory.API.Core.Models.Material
+namespace Factory.API.Service.Models.Material
 {
     public class BaseMaterialDto
         : IMapable<Data.Entities.Material, BaseMaterialDto>

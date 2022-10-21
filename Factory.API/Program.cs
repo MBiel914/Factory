@@ -1,5 +1,5 @@
-﻿using Factory.API.Core.Contracts;
-using Factory.API.Core.Repositories;
+﻿using Factory.API.Service.Contracts;
+using Factory.API.Service.Repositories;
 using Factory.API.Data.Contexts;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;

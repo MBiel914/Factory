@@ -1,7 +1,7 @@
-﻿using Factory.API.Core.Models.ToolType;
+﻿using Factory.API.Service.Models.ToolType;
 using Factory.API.Data.Entities;
 
-namespace Factory.API.Core.Contracts
+namespace Factory.API.Service.Contracts
 {
     public interface IToolTypeRepository : IGeneralRepository<ToolType>
     {

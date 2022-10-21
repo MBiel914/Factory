@@ -1,5 +1,5 @@
-﻿using Factory.API.Core.Contracts;
-using Factory.API.Core.Models.User;
+﻿using Factory.API.Service.Contracts;
+using Factory.API.Service.Models.User;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 

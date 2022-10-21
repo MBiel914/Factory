@@ -1,7 +1,7 @@
-﻿using Factory.API.Core.Models.User;
+﻿using Factory.API.Service.Models.User;
 using Microsoft.AspNetCore.Identity;
 
-namespace Factory.API.Core.Contracts
+namespace Factory.API.Service.Contracts
 {
     public interface IAuthManager
     {
