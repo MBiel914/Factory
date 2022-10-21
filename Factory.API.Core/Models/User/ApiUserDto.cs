@@ -1,5 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
-using Factory.API.Core.Repositories;
+using Factory.API.Service.Configurations;
 using Microsoft.AspNetCore.Identity;
 
 namespace Factory.API.Core.Models.User

@@ -1,4 +1,4 @@
-﻿namespace Factory.API.Core.Repositories
+﻿namespace Factory.API.Service.Configurations
 {
     public static class Mapper
     {

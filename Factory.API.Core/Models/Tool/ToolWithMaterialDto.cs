@@ -1,5 +1,5 @@
 ﻿using Factory.API.Core.Models.Material;
-using Factory.API.Core.Repositories;
+using Factory.API.Service.Configurations;
 
 namespace Factory.API.Core.Models.Tool
 {

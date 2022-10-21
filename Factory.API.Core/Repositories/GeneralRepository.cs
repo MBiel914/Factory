@@ -2,6 +2,7 @@
 using Factory.API.Core.Exceptions;
 using Factory.API.Core.Models.Extras;
 using Factory.API.Data.Contexts;
+using Factory.API.Service.Configurations;
 using Microsoft.EntityFrameworkCore;
 
 namespace Factory.API.Core.Repositories
@@ -100,12 +101,14 @@ namespace Factory.API.Core.Repositories
 
         public Task Update<TSource>(int id, TSource source)
         {
-            throw new NotImplementedException();
-            var entity = source.GenericMapper<TSource, TDbModel>();
-            entity = _context.Set<TDbModel>().Find(id);
+            var entity = _context.Set<TDbModel>().Find(id);
 
             if (entity is null)
                 throw new NotFoundException(typeof(TDbModel).Name, id);
+
+            _context.Entry(entity).State = EntityState.Detached;
+
+            entity = source.GenericMapper<TSource, TDbModel>();
 
             _context.Set<TDbModel>().Update(entity);
             _context.SaveChanges();
