@@ -1,9 +1,10 @@
-﻿using Factory.API.Service.Configurations;
+﻿using Factory.API.Data.Models;
+using Factory.API.Service.Configurations;
 
-namespace Factory.API.Service.Models.ToolType
+namespace Factory.API.Service.DTOs.ToolType
 {
     public class GetToolTypeDto
-        : BaseToolTypeDto, IMapable<Data.Entities.ToolType, GetToolTypeDto>, IMapable<BaseToolTypeDto, GetToolTypeDto>
+        : BaseToolTypeDto, IMapable<ToolTypeModel, GetToolTypeDto>, IMapable<BaseToolTypeDto, GetToolTypeDto>
     {
         public int Id { get; set; }
 
@@ -19,7 +20,7 @@ namespace Factory.API.Service.Models.ToolType
             SecondSize = baseToolTypeDto.SecondSize;
         }
 
-        public new GetToolTypeDto Map(Data.Entities.ToolType source)
+        public new GetToolTypeDto Map(ToolTypeModel source)
         {
             var result = new GetToolTypeDto(base.Map(source));
             result.Id = source.Id;

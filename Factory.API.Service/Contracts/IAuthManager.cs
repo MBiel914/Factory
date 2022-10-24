@@ -1,4 +1,4 @@
-﻿using Factory.API.Service.Models.User;
+﻿using Factory.API.Service.DTOs.User;
 using Microsoft.AspNetCore.Identity;
 
 namespace Factory.API.Service.Contracts

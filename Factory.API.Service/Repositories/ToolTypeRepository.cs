@@ -1,12 +1,12 @@
 ﻿using Factory.API.Service.Contracts;
-using Factory.API.Service.Models.ToolType;
+using Factory.API.Service.DTOs.ToolType;
 using Factory.API.Data.Contexts;
-using Factory.API.Data.Entities;
+using Factory.API.Data.Models;
 using Microsoft.EntityFrameworkCore;
 
 namespace Factory.API.Service.Repositories
 {
-    public class ToolTypeRepository : GeneralRepository<ToolType>, IToolTypeRepository
+    public class ToolTypeRepository : GeneralRepository<ToolTypeModel>, IToolTypeRepository
     {
         private readonly FactoryDbContext _context;
 

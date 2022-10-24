@@ -1,8 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Factory.API.Service.Contracts;
-using Factory.API.Service.Models.ToolType;
-using Factory.API.Service.Models.Extras;
+using Factory.API.Service.DTOs.ToolType;
+using Factory.API.Service.DTOs.Extras;
 using Microsoft.AspNetCore.Authorization;
 using Factory.API.Service.Exceptions;
 
@@ -29,7 +29,7 @@ namespace Factory.API.Controllers
 
         [HttpGet("paged")]
         [AllowAnonymous]
-        public async Task<ActionResult<IEnumerable<GetToolTypeDto>>> GetPagedToolTypes([FromBody] QueryParameters parameters)
+        public async Task<ActionResult<IEnumerable<GetToolTypeDto>>> GetPagedToolTypes([FromBody] QueryParametersDto parameters)
         {
             return Ok(await _repository.GetAllAsync<GetToolTypeDto>(parameters));
         }
@@ -62,7 +62,7 @@ namespace Factory.API.Controllers
 
             try
             {
-                await _repository.Update<GetToolTypeDto>(id, updateToolTypeDto);
+                await _repository.Update(id, updateToolTypeDto);
             }
             catch (NotFoundException ex)
             {

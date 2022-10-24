@@ -1,6 +1,6 @@
 ﻿using Factory.API.Service.Contracts;
 using Factory.API.Service.Exceptions;
-using Factory.API.Service.Models.Extras;
+using Factory.API.Service.DTOs.Extras;
 using Factory.API.Data.Contexts;
 using Factory.API.Service.Configurations;
 using Microsoft.EntityFrameworkCore;
@@ -62,7 +62,7 @@ namespace Factory.API.Service.Repositories
             return result;
         }
 
-        public async Task<PagedResult<TResult>> GetAllAsync<TResult>(QueryParameters parameters)
+        public async Task<PagedResultDto<TResult>> GetAllAsync<TResult>(QueryParametersDto parameters)
             where TResult : class, IMapable<TDbModel, TResult>, new()
         {
             var totalSize = await _context.Set<TDbModel>().CountAsync();
@@ -71,7 +71,7 @@ namespace Factory.API.Service.Repositories
                 .Take(parameters.PageSize)
                 .ToListAsync();
 
-            var result = new PagedResult<TResult>
+            var result = new PagedResultDto<TResult>
             {
                 TotalCount = totalSize,
                 PageSize = parameters.PageSize

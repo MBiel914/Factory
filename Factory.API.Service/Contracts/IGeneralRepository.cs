@@ -1,4 +1,4 @@
-﻿using Factory.API.Service.Models.Extras;
+﻿using Factory.API.Service.DTOs.Extras;
 using Factory.API.Service.Configurations;
 
 namespace Factory.API.Service.Contracts
@@ -11,7 +11,7 @@ namespace Factory.API.Service.Contracts
 
         Task<List<TResult>> GetAllAsync<TResult>()
             where TResult : class, IMapable<TDbModel, TResult>, new();
-        Task<PagedResult<TResult>> GetAllAsync<TResult>(QueryParameters parameters)
+        Task<PagedResultDto<TResult>> GetAllAsync<TResult>(QueryParametersDto parameters)
             where TResult : class, IMapable<TDbModel, TResult>, new();
 
         Task<TResult> AddAsync<TSource, TResult>(TSource source)

@@ -219,8 +219,8 @@ namespace Factory.API.Data.Migrations
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
                 values: new object[,]
                 {
-                    { "5b18329e-a452-4f10-8c95-66937f53c900", "f1049c4d-6f9e-458e-82a3-a5e5147a0cfe", "User", "USER" },
-                    { "86c2337a-32dc-4dee-b322-74f9f6bc4c67", "601fed05-e273-4a11-9cc5-37d714106bc7", "Administrator", "ADMINISTRATOR" }
+                    { "55eda0ed-8c7d-4414-9549-1ea0d7d2ca0d", "e40b34f7-ab1c-4918-add8-14a89450a32e", "User", "USER" },
+                    { "614a41d1-0a13-4566-b6f3-0acd24e707ca", "db80af12-1881-4ccd-a5d7-4e9be3e32eb8", "Administrator", "ADMINISTRATOR" }
                 });
 
             migrationBuilder.InsertData(

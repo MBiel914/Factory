@@ -1,15 +1,16 @@
-﻿using Factory.API.Service.Configurations;
+﻿using Factory.API.Data.Models;
+using Factory.API.Service.Configurations;
 
-namespace Factory.API.Service.Models.Material
+namespace Factory.API.Service.DTOs.Material
 {
     public class BaseMaterialDto
-        : IMapable<Data.Entities.Material, BaseMaterialDto>
+        : IMapable<MaterialModel, BaseMaterialDto>
     {
         public string Name { get; set; }
         public int Quality { get; set; }
         public double CostPerKg { get; set; }
 
-        public BaseMaterialDto Map(Data.Entities.Material source)
+        public BaseMaterialDto Map(MaterialModel source)
         {
             return new BaseMaterialDto
             {

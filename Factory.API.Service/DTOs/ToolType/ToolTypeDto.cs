@@ -1,13 +1,14 @@
-﻿using Factory.API.Service.Models.Tool;
+﻿using Factory.API.Service.DTOs.Tool;
 using Factory.API.Service.Configurations;
+using Factory.API.Data.Models;
 
-namespace Factory.API.Service.Models.ToolType
+namespace Factory.API.Service.DTOs.ToolType
 {
-    public class ToolTypeDto : BaseToolTypeDto, IMapable<Data.Entities.ToolType, ToolTypeDto>
+    public class ToolTypeDto : BaseToolTypeDto, IMapable<ToolTypeModel, ToolTypeDto>
     {
         public virtual IList<ToolWithMaterialDto>? Tools { get; set; }
 
-        public new ToolTypeDto Map(Data.Entities.ToolType source)
+        public new ToolTypeDto Map(ToolTypeModel source)
         {
             var result = new ToolTypeDto
             {

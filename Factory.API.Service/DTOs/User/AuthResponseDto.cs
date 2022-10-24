@@ -1,4 +1,4 @@
-﻿namespace Factory.API.Service.Models.User
+﻿namespace Factory.API.Service.DTOs.User
 {
     public class AuthResponseDto
     {

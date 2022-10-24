@@ -1,6 +1,6 @@
 ﻿using Factory.API.Service.Contracts;
-using Factory.API.Service.Filters;
-using Factory.API.Service.Models.User;
+using Factory.API.Filters;
+using Factory.API.Service.DTOs.User;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 

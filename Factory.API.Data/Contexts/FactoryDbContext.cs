@@ -1,5 +1,5 @@
 ﻿using Factory.API.Data.Configurations;
-using Factory.API.Data.Entities;
+using Factory.API.Data.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
@@ -15,9 +15,9 @@ namespace Factory.API.Data.Contexts
         {
         }
 
-        public DbSet<ToolType> ToolTypes { get; set; }
-        public DbSet<Material> Materials { get; set; }
-        public DbSet<Tool> Tools { get; set; }
+        public DbSet<ToolTypeModel> ToolTypes { get; set; }
+        public DbSet<MaterialModel> Materials { get; set; }
+        public DbSet<ToolModel> Tools { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {

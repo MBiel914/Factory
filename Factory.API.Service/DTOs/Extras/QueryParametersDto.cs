@@ -1,6 +1,6 @@
-﻿namespace Factory.API.Service.Models.Extras
+﻿namespace Factory.API.Service.DTOs.Extras
 {
-    public class QueryParameters
+    public class QueryParametersDto
     {
         private int _pageSize = 15;
 

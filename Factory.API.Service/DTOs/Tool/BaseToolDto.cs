@@ -1,14 +1,15 @@
-﻿using Factory.API.Service.Configurations;
+﻿using Factory.API.Data.Models;
+using Factory.API.Service.Configurations;
 
-namespace Factory.API.Service.Models.Tool
+namespace Factory.API.Service.DTOs.Tool
 {
-    public class BaseToolDto : IMapable<Data.Entities.Tool, BaseToolDto>
+    public class BaseToolDto : IMapable<ToolModel, BaseToolDto>
     {
         public string Name { get; set; }
         public double Weight { get; set; }
         public double Margin { get; set; }
 
-        public BaseToolDto Map(Data.Entities.Tool source)
+        public BaseToolDto Map(ToolModel source)
         {
             return new BaseToolDto
             {

@@ -1,9 +1,6 @@
-﻿using Factory.API.Service.Models.User;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Filters;
-using Microsoft.Extensions.Logging;
+﻿using Microsoft.AspNetCore.Mvc.Filters;
 
-namespace Factory.API.Service.Filters
+namespace Factory.API.Filters
 {
     public class LoginFilter : IActionFilter
     {

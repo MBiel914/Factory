@@ -1,6 +1,6 @@
-﻿namespace Factory.API.Service.Models.Extras
+﻿namespace Factory.API.Service.DTOs.Extras
 {
-    public class PagedResult<T>
+    public class PagedResultDto<T>
     {
         public int TotalCount { get; set; }
         public int PageSize { get; set; }

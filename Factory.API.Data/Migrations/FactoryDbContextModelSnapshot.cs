@@ -22,7 +22,7 @@ namespace Factory.API.Data.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
 
-            modelBuilder.Entity("Factory.API.Data.Entities.Material", b =>
+            modelBuilder.Entity("Factory.API.Data.Models.MaterialModel", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -68,7 +68,7 @@ namespace Factory.API.Data.Migrations
                         });
                 });
 
-            modelBuilder.Entity("Factory.API.Data.Entities.Tool", b =>
+            modelBuilder.Entity("Factory.API.Data.Models.ToolModel", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -130,7 +130,7 @@ namespace Factory.API.Data.Migrations
                         });
                 });
 
-            modelBuilder.Entity("Factory.API.Data.Entities.ToolType", b =>
+            modelBuilder.Entity("Factory.API.Data.Models.ToolTypeModel", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -243,15 +243,15 @@ namespace Factory.API.Data.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "86c2337a-32dc-4dee-b322-74f9f6bc4c67",
-                            ConcurrencyStamp = "601fed05-e273-4a11-9cc5-37d714106bc7",
+                            Id = "614a41d1-0a13-4566-b6f3-0acd24e707ca",
+                            ConcurrencyStamp = "db80af12-1881-4ccd-a5d7-4e9be3e32eb8",
                             Name = "Administrator",
                             NormalizedName = "ADMINISTRATOR"
                         },
                         new
                         {
-                            Id = "5b18329e-a452-4f10-8c95-66937f53c900",
-                            ConcurrencyStamp = "f1049c4d-6f9e-458e-82a3-a5e5147a0cfe",
+                            Id = "55eda0ed-8c7d-4414-9549-1ea0d7d2ca0d",
+                            ConcurrencyStamp = "e40b34f7-ab1c-4918-add8-14a89450a32e",
                             Name = "User",
                             NormalizedName = "USER"
                         });
@@ -428,15 +428,15 @@ namespace Factory.API.Data.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
-            modelBuilder.Entity("Factory.API.Data.Entities.Tool", b =>
+            modelBuilder.Entity("Factory.API.Data.Models.ToolModel", b =>
                 {
-                    b.HasOne("Factory.API.Data.Entities.Material", "Material")
+                    b.HasOne("Factory.API.Data.Models.MaterialModel", "Material")
                         .WithMany("Tools")
                         .HasForeignKey("MaterialId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Factory.API.Data.Entities.ToolType", "ToolType")
+                    b.HasOne("Factory.API.Data.Models.ToolTypeModel", "ToolType")
                         .WithMany("Tools")
                         .HasForeignKey("ToolTypeId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -498,12 +498,12 @@ namespace Factory.API.Data.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("Factory.API.Data.Entities.Material", b =>
+            modelBuilder.Entity("Factory.API.Data.Models.MaterialModel", b =>
                 {
                     b.Navigation("Tools");
                 });
 
-            modelBuilder.Entity("Factory.API.Data.Entities.ToolType", b =>
+            modelBuilder.Entity("Factory.API.Data.Models.ToolTypeModel", b =>
                 {
                     b.Navigation("Tools");
                 });

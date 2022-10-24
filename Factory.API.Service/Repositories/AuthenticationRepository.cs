@@ -1,5 +1,5 @@
 ﻿using Factory.API.Service.Contracts;
-using Factory.API.Service.Models.User;
+using Factory.API.Service.DTOs.User;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
