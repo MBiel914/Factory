@@ -1,6 +1,7 @@
 ﻿using Factory.API.Service.DTOs.Material;
 using Factory.API.Service.Configurations;
 using Factory.API.Data.Models;
+using Factory.API.Service.DTOs.ToolType;
 
 namespace Factory.API.Service.DTOs.Tool
 {
@@ -9,20 +10,16 @@ namespace Factory.API.Service.DTOs.Tool
     {
         public BaseMaterialDto Material { get; set; }
 
-        public ToolWithMaterialDto()
-        {
-        }
-
-        private ToolWithMaterialDto(BaseToolDto baseTool)
-        {
-            Name = baseTool.Name;
-            Weight = baseTool.Weight;
-            Margin = baseTool.Margin;
-        }
-
         public new ToolWithMaterialDto Map(ToolModel source)
         {
-            var result = new ToolWithMaterialDto(base.Map(source));
+            BaseToolDto baseToolType = base.Map(source);
+            ToolWithMaterialDto result = new ToolWithMaterialDto
+            {
+                Name = baseToolType.Name,
+                Margin = baseToolType.Margin,
+                Weight = baseToolType.Weight
+            };
+
             result.Material = new BaseMaterialDto().Map(source.Material);
 
             return result;

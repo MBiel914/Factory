@@ -10,12 +10,13 @@ namespace Factory.API.Service.DTOs.ToolType
 
         public new ToolTypeDto Map(ToolTypeModel source)
         {
-            var result = new ToolTypeDto
+            BaseToolTypeDto baseToolType = base.Map(source);
+            ToolTypeDto result = new ToolTypeDto
             {
-                Name = source.Name,
-                Description = source.Description,
-                Size = source.Size,
-                SecondSize = source.SecondSize
+                Name = baseToolType.Name,
+                Description = baseToolType.Description,
+                Size = baseToolType.Size,
+                SecondSize = baseToolType.SecondSize
             };
 
             if (source.Tools is null)

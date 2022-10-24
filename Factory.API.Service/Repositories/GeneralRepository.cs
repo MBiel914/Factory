@@ -18,20 +18,20 @@ namespace Factory.API.Service.Repositories
         }
 
         public async Task<TResult> AddAsync<TSource, TResult>(TSource source)
-            where TResult : class, IMapable<TSource, TResult>, new()
-            where TSource : class
+            where TResult : class, IMapable<TSource, TResult>, IMapable<TDbModel, TResult>, new()
+            where TSource : class, IMapable<TSource, TDbModel>
         {
-            var entity = source.GenericMapper<TSource, TDbModel>();
+            var entity = source.Map(source);
 
             await _context.AddRangeAsync(entity);
             await _context.SaveChangesAsync();
 
-            return entity.GenericMapper<TDbModel, TResult>();
+            return new TResult().Map(entity);
         }
 
-        public Task Delete(int id)
+        public async Task DeleteAsync(int id)
         {
-            var entity = _context.Set<TDbModel>().Find(id);
+            var entity = await _context.Set<TDbModel>().FindAsync(id);
 
             if (entity is null)
             {
@@ -40,14 +40,12 @@ namespace Factory.API.Service.Repositories
 
             _context.Set<TDbModel>().Remove(entity);
             _context.SaveChanges();
-
-            return Task.CompletedTask;
         }
 
-        public Task<bool> Exists(int id)
+        public async Task<bool> ExistsAsync(int id)
         {
-            var entity = _context.Set<TDbModel>().Find(id);
-            return Task.FromResult(entity != null);
+            var entity = await _context.Set<TDbModel>().FindAsync(id);
+            return entity != null;
         }
 
         public async Task<List<TResult>> GetAllAsync<TResult>()
@@ -103,9 +101,10 @@ namespace Factory.API.Service.Repositories
             return new TResult().Map(result);
         }
 
-        public Task Update<TSource>(int id, TSource source)
+        public async Task UpdateAsync<TSource>(int id, TSource source)
+            where TSource : class, IMapable<TSource, TDbModel>
         {
-            var entity = _context.Set<TDbModel>().Find(id);
+            var entity = await _context.Set<TDbModel>().FindAsync(id);
 
             if (entity is null)
             {
@@ -114,11 +113,10 @@ namespace Factory.API.Service.Repositories
 
             _context.Entry(entity).State = EntityState.Detached;
 
-            entity = source.GenericMapper<TSource, TDbModel>();
+            entity = source.Map(source);
 
             _context.Set<TDbModel>().Update(entity);
             _context.SaveChanges();
-            return Task.CompletedTask;
         }
     }
 }

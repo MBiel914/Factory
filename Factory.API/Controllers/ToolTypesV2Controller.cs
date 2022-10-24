@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using Factory.API.Service.Contracts;
+      using Factory.API.Service.Contracts;
 using Factory.API.Service.DTOs.ToolType;
 using Factory.API.Service.DTOs.Extras;
 using Microsoft.AspNetCore.Authorization;
@@ -57,14 +56,14 @@ namespace Factory.API.Controllers
                 return BadRequest("Invalid Record ID");
             }
 
-            if (!_repository.Exists(id).GetAwaiter().GetResult())
+            if (!_repository.ExistsAsync(id).GetAwaiter().GetResult())
             {
                 return NotFound($"Record with ID: {id}");
             }
 
             try
             {
-                await _repository.Update(id, updateToolTypeDto);
+                await _repository.UpdateAsync<GetToolTypeDto>(id, updateToolTypeDto);
             }
             catch (NotFoundException ex)
             {
@@ -92,7 +91,7 @@ namespace Factory.API.Controllers
         {
             try
             {
-                await _repository.Delete(id);
+                await _repository.DeleteAsync(id);
             }
             catch (NotFoundException ex)
             {
@@ -104,7 +103,7 @@ namespace Factory.API.Controllers
 
         private async Task<bool> ToolTypeExistsAsync(int id)
         {
-            return await _repository.Exists(id);
+            return await _repository.ExistsAsync(id);
         }
     }
 }

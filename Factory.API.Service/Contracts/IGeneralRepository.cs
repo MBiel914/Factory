@@ -4,7 +4,7 @@ using Factory.API.Service.Configurations;
 namespace Factory.API.Service.Contracts
 {
     public interface IGeneralRepository<TDbModel>
-        where TDbModel : class
+        where TDbModel : class, new()
     {
         Task<TResult> GetAsync<TResult>(int? id)
             where TResult : class, IMapable<TDbModel, TResult>, new();
@@ -15,13 +15,14 @@ namespace Factory.API.Service.Contracts
             where TResult : class, IMapable<TDbModel, TResult>, new();
 
         Task<TResult> AddAsync<TSource, TResult>(TSource source)
-            where TResult : class, IMapable<TSource, TResult>, new()
-            where TSource : class;
+            where TResult : class, IMapable<TSource, TResult>, IMapable<TDbModel, TResult>, new()
+            where TSource : class, IMapable<TSource, TDbModel>;
 
-        Task Delete(int id);
+        Task DeleteAsync(int id);
 
-        Task Update<TSource>(int id, TSource source);
+        Task UpdateAsync<TSource>(int id, TSource source)
+            where TSource : class, IMapable<TSource, TDbModel>;
 
-        Task<bool> Exists(int id);
+        Task<bool> ExistsAsync(int id);
     }
 }
