@@ -58,7 +58,9 @@ namespace Factory.API.Controllers
             }
 
             if (!_repository.Exists(id).GetAwaiter().GetResult())
+            {
                 return NotFound($"Record with ID: {id}");
+            }
 
             try
             {

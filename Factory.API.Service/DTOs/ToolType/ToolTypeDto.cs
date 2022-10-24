@@ -19,7 +19,9 @@ namespace Factory.API.Service.DTOs.ToolType
             };
 
             if (source.Tools is null)
+            {
                 return result;
+            }
 
             result.Tools = new List<ToolWithMaterialDto>();
 

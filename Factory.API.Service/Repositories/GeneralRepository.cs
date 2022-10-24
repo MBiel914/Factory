@@ -34,7 +34,9 @@ namespace Factory.API.Service.Repositories
             var entity = _context.Set<TDbModel>().Find(id);
 
             if (entity is null)
+            {
                 throw new NotFoundException(typeof(TDbModel).Name, id);
+            }
 
             _context.Set<TDbModel>().Remove(entity);
             _context.SaveChanges();
@@ -94,7 +96,9 @@ namespace Factory.API.Service.Repositories
             var result = await _context.Set<TDbModel>().FindAsync(id);
 
             if (result is null)
+            {
                 throw new NotFoundException(typeof(TDbModel).Name, id.HasValue ? id : "No Key Provided");
+            }
 
             return new TResult().Map(result);
         }
@@ -104,7 +108,9 @@ namespace Factory.API.Service.Repositories
             var entity = _context.Set<TDbModel>().Find(id);
 
             if (entity is null)
+            {
                 throw new NotFoundException(typeof(TDbModel).Name, id);
+            }
 
             _context.Entry(entity).State = EntityState.Detached;
 
