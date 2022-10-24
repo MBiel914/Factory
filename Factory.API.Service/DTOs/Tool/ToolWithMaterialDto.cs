@@ -10,7 +10,7 @@ namespace Factory.API.Service.DTOs.Tool
     {
         public BaseMaterialDto Material { get; set; }
 
-        public new ToolWithMaterialDto Map(ToolModel source)
+        public ToolWithMaterialDto Map(ToolModel source)
         {
             BaseToolDto baseToolType = base.Map(source);
             ToolWithMaterialDto result = new ToolWithMaterialDto

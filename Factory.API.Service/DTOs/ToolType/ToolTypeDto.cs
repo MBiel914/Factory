@@ -8,7 +8,7 @@ namespace Factory.API.Service.DTOs.ToolType
     {
         public virtual IList<ToolWithMaterialDto>? Tools { get; set; }
 
-        public new ToolTypeDto Map(ToolTypeModel source)
+        public ToolTypeDto Map(ToolTypeModel source)
         {
             BaseToolTypeDto baseToolType = base.Map(source);
             ToolTypeDto result = new ToolTypeDto
