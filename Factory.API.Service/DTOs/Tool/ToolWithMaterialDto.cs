@@ -5,24 +5,21 @@ using Factory.API.Service.DTOs.ToolType;
 
 namespace Factory.API.Service.DTOs.Tool
 {
-    public class ToolWithMaterialDto
+    public record ToolWithMaterialDto
         : BaseToolDto, IMapable<ToolModel, ToolWithMaterialDto>
     {
-        public BaseMaterialDto Material { get; set; }
+        public BaseMaterialDto Material { get; init; }
 
         public ToolWithMaterialDto Map(ToolModel source)
         {
             BaseToolDto baseToolType = base.Map(source);
-            ToolWithMaterialDto result = new ToolWithMaterialDto
+            return new ToolWithMaterialDto
             {
                 Name = baseToolType.Name,
                 Margin = baseToolType.Margin,
-                Weight = baseToolType.Weight
+                Weight = baseToolType.Weight,
+                Material = new BaseMaterialDto().Map(source.Material)
             };
-
-            result.Material = new BaseMaterialDto().Map(source.Material);
-
-            return result;
         }
     }
 }

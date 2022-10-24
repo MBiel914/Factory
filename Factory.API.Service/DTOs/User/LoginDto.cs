@@ -2,14 +2,14 @@
 
 namespace Factory.API.Service.DTOs.User
 {
-    public class LoginDto
+    public record LoginDto
     {
         [Required]
         [EmailAddress]
-        public string Email { get; set; }
+        public string Email { get; init; }
 
         [Required]
         [StringLength(15, ErrorMessage = "Your Password is limited to {2} to {0} characters", MinimumLength = 6)]
-        public string Password { get; set; }
+        public string Password { get; init; }
     }
 }

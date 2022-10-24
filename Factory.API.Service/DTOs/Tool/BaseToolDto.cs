@@ -3,11 +3,11 @@ using Factory.API.Service.Configurations;
 
 namespace Factory.API.Service.DTOs.Tool
 {
-    public class BaseToolDto : IMapable<ToolModel, BaseToolDto>
+    public record BaseToolDto : IMapable<ToolModel, BaseToolDto>
     {
-        public string Name { get; set; }
-        public double Weight { get; set; }
-        public double Margin { get; set; }
+        public string Name { get; init; }
+        public double Weight { get; init; }
+        public double Margin { get; init; }
 
         public BaseToolDto Map(ToolModel source)
         {

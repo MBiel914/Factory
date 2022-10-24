@@ -4,13 +4,13 @@ using Microsoft.AspNetCore.Identity;
 
 namespace Factory.API.Service.DTOs.User
 {
-    public class ApiUserDto : LoginDto, IMapable<ApiUserDto, IdentityUser>
+    public record ApiUserDto : LoginDto, IMapable<ApiUserDto, IdentityUser>
     {
         [Required]
-        public string FirstName { get; set; }
+        public string FirstName { get; init; }
 
         [Required]
-        public string LastName { get; set; }
+        public string LastName { get; init; }
 
         public IdentityUser Map(ApiUserDto source = null)
         {

@@ -3,12 +3,12 @@ using Factory.API.Service.Configurations;
 
 namespace Factory.API.Service.DTOs.Material
 {
-    public class BaseMaterialDto
+    public record BaseMaterialDto
         : IMapable<MaterialModel, BaseMaterialDto>
     {
-        public string Name { get; set; }
-        public int Quality { get; set; }
-        public double CostPerKg { get; set; }
+        public string Name { get; init; }
+        public int Quality { get; init; }
+        public double CostPerKg { get; init; }
 
         public BaseMaterialDto Map(MaterialModel source)
         {

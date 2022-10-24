@@ -3,13 +3,13 @@ using Factory.API.Service.Configurations;
 
 namespace Factory.API.Service.DTOs.ToolType
 {
-    public class BaseToolTypeDto
+    public record BaseToolTypeDto
         : IMapable<ToolTypeModel, BaseToolTypeDto>, IMapable<BaseToolTypeDto, ToolTypeModel>
     {
-        public string Name { get; set; }
-        public string? Description { get; set; }
-        public int Size { get; set; }
-        public int? SecondSize { get; set; }
+        public string Name { get; init; }
+        public string? Description { get; init; }
+        public int Size { get; init; }
+        public int? SecondSize { get; init; }
 
         public BaseToolTypeDto Map(ToolTypeModel source)
         {

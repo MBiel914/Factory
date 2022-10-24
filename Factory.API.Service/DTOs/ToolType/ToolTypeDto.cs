@@ -4,9 +4,9 @@ using Factory.API.Data.Models;
 
 namespace Factory.API.Service.DTOs.ToolType
 {
-    public class ToolTypeDto : BaseToolTypeDto, IMapable<ToolTypeModel, ToolTypeDto>
+    public record ToolTypeDto : BaseToolTypeDto, IMapable<ToolTypeModel, ToolTypeDto>
     {
-        public virtual IList<ToolWithMaterialDto>? Tools { get; set; }
+        public virtual IList<ToolWithMaterialDto>? Tools { get; init; }
 
         public ToolTypeDto Map(ToolTypeModel source)
         {
@@ -16,19 +16,25 @@ namespace Factory.API.Service.DTOs.ToolType
                 Name = baseToolType.Name,
                 Description = baseToolType.Description,
                 Size = baseToolType.Size,
-                SecondSize = baseToolType.SecondSize
+                SecondSize = baseToolType.SecondSize,
+                Tools = GetToolsIList(source.Tools)
             };
 
-            if (source.Tools is null)
+            return result;
+        }
+
+        private IList<ToolWithMaterialDto>? GetToolsIList(IList<ToolModel>? source)
+        {
+            if (source is null)
             {
-                return result;
+                return null;
             }
 
-            result.Tools = new List<ToolWithMaterialDto>();
+            var result = new List<ToolWithMaterialDto>();
 
-            foreach (var item in source.Tools)
+            foreach (var item in source)
             {
-                result.Tools.Add(new ToolWithMaterialDto().Map(item));
+                result.Add(new ToolWithMaterialDto().Map(item));
             }
 
             return result;
