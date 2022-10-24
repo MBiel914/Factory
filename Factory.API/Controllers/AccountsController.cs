@@ -1,4 +1,5 @@
 ﻿using Factory.API.Service.Contracts;
+using Factory.API.Service.Filters;
 using Factory.API.Service.Models.User;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -59,10 +60,9 @@ namespace Factory.API.Controllers
 
         [HttpPost]
         [AllowAnonymous]
+        [ServiceFilter(typeof(LoginFilter))]
         public async Task<ActionResult> Login([FromBody] LoginDto loginDto)
         {
-            _logger.LogInformation($"User: {loginDto.Email}, try to login.");
-
             var authResponse = await _authManager.Login(loginDto);
 
             if (authResponse is null)
